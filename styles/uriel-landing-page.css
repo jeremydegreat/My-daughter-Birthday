@@ -1,0 +1,372 @@
+/* ----------  ROOT & RESET  ---------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* ----------  PARALLAX BACKGROUND  ---------- */
+.bg-parallax {
+    position: fixed;
+    inset: 0;
+    background-color: #0A1F44;
+    will-change: transform;
+    z-index: -3;
+}
+
+/* ----------  FLOATING HEARTS  ---------- */
+.heart {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    background: rgba(234, 163, 173, 0.74);
+    border-radius: 50% 50% 0 50%;
+    transform: rotate(-45deg);
+    animation: float 25s linear infinite;
+    z-index: -2;
+}
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: inherit;
+    border-radius: 50%;
+    top: -9px;
+    left: 0;
+}
+@keyframes float {
+    0% {
+        transform: translateY(110vh) rotate(-45deg) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) rotate(-45deg) scale(1.6);
+        opacity: 0;
+    }
+}
+
+/* ----------  LAYOUT  ---------- */
+.main-container {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 1rem;
+    place-items: center;
+    height: 75vh;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-family: 'sansita', sans-serif;
+}
+
+/* ----------  LEFT SIDE (Thin Electric Orange Glow + Floating Animation) ---------- */
+.left-side {
+  grid-column: 1 / 2;
+  align-self: start;
+  justify-self: start;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 70vh;
+  border: 1.5px solid #ff9d00;
+  border-radius: 12px;
+
+  /* Combine glow + floating motion */
+  animation:
+    thin-flicker-orange 2.2s infinite ease-in-out,
+    floatUpDown 5s ease-in-out infinite;
+}
+
+/* ----------  THIN ELECTRIC ORANGE GLOW ---------- */
+@keyframes thin-flicker-orange {
+  0%, 100% {
+    border-color: #ff9d00;
+    box-shadow:
+      0 0 2px #ff9d00,
+      0 0 4px #ff9d00,
+      inset 0 0 2px #ff9d00;
+  }
+  40% {
+    border-color: #ffc14d;
+    box-shadow:
+      0 0 3px #ffc14d,
+      0 0 6px #ffc14d,
+      inset 0 0 3px #ffc14d;
+  }
+  70% {
+    border-color: #ffae33;
+    box-shadow:
+      0 0 2px #ffae33,
+      0 0 5px #ffae33,
+      inset 0 0 2px #ffae33;
+  }
+}
+
+/* ----------  FLOATING MOVEMENT (rise + back down) ---------- */
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(40px);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(40px);
+    opacity: 0.5;
+  }
+}
+
+h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #d63384;
+    text-shadow: 0 2px 12px rgba(214, 51, 132, .3);
+}
+
+.sub-wrap {
+    margin-top: 5rem;
+    font-size: 2rem;
+    color: #b76e79;
+}
+.sub-wrap .name {
+    color: #d4af37;
+    position: relative;
+}
+.sub-wrap .name::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    animation: shimmer 2.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* ----------  SLIDESHOW (Orange Electric Glow) ---------- */
+.slideshow {
+  position: relative;
+  width: clamp(300px, 80vw, 700px);
+  aspect-ratio: 4 / 3.8;
+  margin: 1rem 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid #ff9d00;
+  animation: electric-flicker-orange 2s infinite ease-in-out;
+  box-shadow:
+    0 0 5px #ff9d00,
+    0 0 15px #ff9d00,
+    inset 0 0 5px #ff9d00;
+}
+
+/* ----------  SLIDES ---------- */
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img,
+.slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  animation: kenburns 5s infinite alternate ease-in-out;
+}
+
+/* ----------  ANIMATIONS ---------- */
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.04) translate(-1%, 1%);
+  }
+}
+
+/* ----------  ELECTRIC ORANGE FLICKER ---------- */
+@keyframes electric-flicker-orange {
+  0%, 100% {
+    border-color: #ff9d00;
+    box-shadow:
+      0 0 5px #ff9d00,
+      0 0 15px #ff9d00,
+      inset 0 0 5px #ff9d00;
+  }
+  40% {
+    border-color: #ffc14d;
+    box-shadow:
+      0 0 8px #ffc14d,
+      0 0 25px #ffc14d,
+      inset 0 0 8px #ffc14d;
+  }
+  70% {
+    border-color: #ffae33;
+    box-shadow:
+      0 0 6px #ffae33,
+      0 0 18px #ffae33,
+      inset 0 0 6px #ffae33;
+  }
+}
+
+
+/* ----------  STORY (Thin Electric Orange Glow + Floating Animation) ---------- */
+.right-side {
+  grid-column: 3 / 4;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  color: #8a5a6a;
+  margin: 1rem 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 1.5rem 1rem;
+  height: 70vh;
+  overflow-y: auto;
+  border: 1.5px solid #ff9d00;  /* thinner border */
+  border-radius: 12px;
+
+  /* Combine thin flicker + floating animation */
+  animation:
+    thin-flicker-orange 2.2s infinite ease-in-out,
+    floatUpDown 5s ease-in-out infinite;
+}
+
+/* ----------  THIN ELECTRIC ORANGE GLOW ---------- */
+@keyframes thin-flicker-orange {
+  0%, 100% {
+    border-color: #ff9d00;
+    box-shadow:
+      0 0 2px #ff9d00,
+      0 0 4px #ff9d00,
+      inset 0 0 2px #ff9d00;
+  }
+  40% {
+    border-color: #ffc14d;
+    box-shadow:
+      0 0 3px #ffc14d,
+      0 0 6px #ffc14d,
+      inset 0 0 3px #ffc14d;
+  }
+  70% {
+    border-color: #ffae33;
+    box-shadow:
+      0 0 2px #ffae33,
+      0 0 5px #ffae33,
+      inset 0 0 2px #ffae33;
+  }
+}
+
+/* ----------  FLOATING MOVEMENT (rise + back down) ---------- */
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(40px);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(40px);
+    opacity: 0.5;
+  }
+}
+
+
+/* ----------  FOOTER  ---------- */
+footer {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: #b76e79;
+    opacity: 0;
+    animation: fadeUp 2s ease-out 1.5s forwards;
+}
+
+/* ----------  MUSIC BUTTON  ---------- */
+.music-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(214, 51, 132, .25);
+    background: rgba(255, 255, 255, .85);
+    color: #d63384;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .1);
+    backdrop-filter: blur(4px);
+    transition: transform .3s ease;
+}
+.music-btn:hover {
+    transform: scale(1.1);
+}
+.music-btn.playing .icon {
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* ----------  MOBILE  ---------- */
+@media (max-width: 600px) {
+    .slideshow {
+        border-radius: 12px;
+    }
+    .music-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+    }
+}
