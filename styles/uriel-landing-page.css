@@ -237,9 +237,6 @@ body {
           Mobile responsiveness
 =========================================== */
 @media (max-width: 600px) {
-  html, body {
-    height: 95%;
-  }
   .diary {
     display: grid;
     grid-template-rows: 100px 1fr 200px;
