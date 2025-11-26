@@ -238,7 +238,7 @@ body {
 =========================================== */
 @media (max-width: 600px) {
   html, body {
-    height: 90%;
+    height: 95%;
   }
   .diary {
     display: grid;
