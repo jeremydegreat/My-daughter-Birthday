@@ -266,19 +266,24 @@ body {
   .left h1 {
     font-size: 1.7rem;
     top: 0;
-    left: 3.5rem;
+    text-align: start;
+    /* left: 3.5rem; */
     margin-bottom: .1rem;
   }
 
   .side p {
     text-align: center;
-    font-size: .7rem;
+    font-size: .6rem;
     top: 35%;
     right: 2%;
     bottom: 5%;
     width: 90%;
-    margin: 0;
-
+    margin: 0 0 .6rem 0;
+  }
+  .side .sub {
+    text-align: start;
+    margin: 1rem 0 2rem;
+    font-size: 1.2rem;
   }
 
   .slideshow {
@@ -299,7 +304,7 @@ body {
 
   .music-btn {
     position: absolute;
-    bottom: 6.5rem;
+    bottom: 5.2rem;
   }
 
 
